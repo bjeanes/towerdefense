@@ -1,2 +1,10 @@
-Your username: <%= session[:username] %> <br />
-Session:<br />
+Your username: <%= current_user.username %>
+
+<div id="chat_data"></div>
+
+<%= form_remote_tag(
+      :url => { :action => :send_data },
+      :complete => "$('chat_input').value = ''" ) %>
+  <%= text_field_tag( 'chat_input', '', { :size => 20, :id => 'chat_input'} ) %>
+  <%= submit_tag "Send" %>
+</form>

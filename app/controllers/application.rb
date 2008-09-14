@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    @current_user = User.find(session.session_id)
+    @current_user = User.find_by_session_id(session.session_id)
   rescue
     nil
   end
   
   def logged_in?
     !current_user.nil?
-  end  
+  end
 end

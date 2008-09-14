@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: MyString
+  session_id: MyString
+  last_active_at: 2008-09-14 20:09:14
+
+two:
+  username: MyString
+  session_id: MyString
+  last_active_at: 2008-09-14 20:09:14

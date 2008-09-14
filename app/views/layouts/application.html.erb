@@ -1,0 +1,10 @@
+<html>
+  <head>
+    <%= stylesheet_link_tag :all, :cache => true %>
+    <%= javascript_include_tag :defaults, :juggernaut %>
+    <%= juggernaut :host => "towerdefence.local", :debug => false %>
+  </head>
+  <body>
+      <%= yield %>
+  </body>
+</html>

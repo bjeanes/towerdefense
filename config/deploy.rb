@@ -2,7 +2,7 @@ set :application, "towerdefense"
  
 set :use_sudo, false
 set :user, application
-set :domain, "67.207.136.164"
+set :domain, "67.207.142.134"
  
 role :app, domain
 role :web, domain
@@ -24,34 +24,24 @@ after 'deploy:cold', 'deploy:cluster_configure'
 after 'deploy:symlink', 'deploy:create_symlinks'
  
 namespace :deploy do
-  task :cluster_configure do
-    run "cd #{current_path} && mongrel_rails cluster::configure -e production -p 15000 -N 3 -c #{current_path} -a 127.0.0.1 --user #{user} --group #{user} -C #{shared_path}/mongrel_cluster.yml"
+  desc "Restarting mod_rails with restart.txt"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
   end
   
-  desc "Restart mongrel cluster"
-  task :restart do
-    stop
-    start
+  [:start, :stop].each do |t|
+    desc "#{t} task is a no-op with mod_rails"
+    task t, :roles => :app do ; end
   end
   
-  desc "Stop mongrel cluster"
-  task :stop do
-    run "sudo killall juggernaut"
-    run "cd #{current_path} && sudo /usr/bin/mongrel_rails cluster::stop -C #{shared_path}/mongrel_cluster.yml"
+  desc "Uploads database.yml file to shared path"
+  task :upload_database_yml, :roles => :app do
+    put(File.read('config/database.yml'), "#{shared_path}/database.yml", :mode => 0644)
   end
   
-  desc "Start mongrel cluster"
-  task :start do
-    run "cd #{current_path} && sudo /usr/bin/juggernaut -c config/juggernaut.yml -d"
-    run "cd #{current_path} && sudo /usr/bin/mongrel_rails cluster::start -C #{shared_path}/mongrel_cluster.yml"
-  end
-  
-  task :upload_database_yml do
-    put(File.read('config/database.yml'), "#{shared_path}/database.yml", :mode => 0666)
-  end
-  
-  task :create_symlinks do
-    run "rm -drf #{release_path}/public/uploads"
+  desc "Symlinks database.yml file from shared folder"
+  task :create_symlinks, :roles => :app do
+    # run "rm -drf #{release_path}/public/uploads"
     # run "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
     run "rm -f #{release_path}/config/database.yml"
     run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"

@@ -22,14 +22,17 @@ class GamesController < ApplicationController
     render :juggernaut => {:type => :send_to_all} do |page|
       page.insert_html :bottom, 'chat_data', 
         "<span class=\"message\">
-          <span class=\"username\">#{h(current_user.username)}:</span>#{h params[:chat_input]}
+          <span class=\"username\" style=\"color:##{current_user.colour}\">
+            #{h(current_user.username)}:
+          </span>
+          #{h params[:chat_input]}
         </span>"
       page << "$('chat_data').scrollTop = $('chat_data').scrollHeight;"
     end
     render :nothing => true
   end
   
-  private 
+  private
   def user_is_active
     current_user.active! if current_user
   end

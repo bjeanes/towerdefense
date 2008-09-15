@@ -2,7 +2,10 @@ class GamesController < ApplicationController
   before_filter :user_is_active, :except => :login
 
   def index
-    redirect_to :action => 'login' unless logged_in?
+    unless logged_in?
+      redirect_to :action => 'login'
+      return
+    end
     
     render :juggernaut => {:type => :send_to_all} do |page|
       page.insert_html :bottom, 'chat_data', 

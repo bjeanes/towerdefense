@@ -20,7 +20,11 @@ class GamesController < ApplicationController
 	
   def send_data
     render :juggernaut => {:type => :send_to_all} do |page|
-      page.insert_html :bottom, 'chat_data', "<span class=\"message\"><span class=\"username\">#{h(current_user.username)}:</span>#{h params[:chat_input]}</span>"
+      page.insert_html :bottom, 'chat_data', 
+        "<span class=\"message\">
+          <span class=\"username\">#{h(current_user.username)}:</span>#{h params[:chat_input]}
+        </span>"
+      page << "$('chat_data').scrollTop = $('chat_data').scrollHeight;"
     end
     render :nothing => true
   end

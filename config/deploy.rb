@@ -20,7 +20,6 @@ ssh_options[:forward_agent] = true
 ssh_options[:keys] = %w(~/.ssh/id_dsa)
  
 before 'deploy:cold', 'deploy:upload_database_yml'
-after 'deploy:cold', 'deploy:cluster_configure'
 after 'deploy:symlink', 'deploy:create_symlinks'
  
 namespace :deploy do

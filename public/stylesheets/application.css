@@ -1,3 +1,4 @@
 #chat_data { height:200px;overflow-y:scroll;border:1px solid black;}
 #chat_data .message {border-bottom:1px solid #C8C8C8;display:block;}
 #chat_data .message .username {width:50px; font-weight:bold;margin-right:5px;}
+#chat_data .notice {display:block;font-style: italic;}

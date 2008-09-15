@@ -3,6 +3,13 @@ class GamesController < ApplicationController
 
   def index
     redirect_to :action => 'login' unless logged_in?
+    
+    render :juggernaut => {:type => :send_to_all} do |page|
+      page.insert_html :bottom, 'chat_data', 
+        "<span class=\"notice\" style=\"color:##{current_user.colour}\">
+            #{h(current_user.username)} has signed in
+        </span>"
+    end
   end
 
   def take_login

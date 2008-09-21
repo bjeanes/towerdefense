@@ -14,6 +14,10 @@ class GamesController < ApplicationController
         </span>"
     end
   end
+  
+  def login
+    render :layout => false
+  end
 
   def take_login
     @user = User.new

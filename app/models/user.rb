@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   def color; colour; end
   
   def before_create
-    self.colour = COLOURS[rand(colours.size)]
+    self.colour = COLOURS[rand(COLOURS.size)]
     self.last_active_at = Time.zone.now
   end
 end

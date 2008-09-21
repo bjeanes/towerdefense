@@ -1,10 +1,5 @@
-/* @override 
-	http://towerdefense.local/stylesheets/application.css
-	http://towerdefense.local/stylesheets/application.css?1221562259
-*/
-
 #main {
-	height: 300px;
+	height: 400px;
 	border: 1px solid black;
 	border-bottom: none;
 }
@@ -16,7 +11,7 @@
 #user_list {
 	width: 18%;
 	float: left;
-	height: 441;
+	height: 541;
 	padding: 5px;
 	border: 1px solid black;
 	border-left: none;

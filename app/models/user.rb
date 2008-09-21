@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :session_id
   
   def active!
-    last_active_at = Time.now
+    self.last_active_at = Time.zone.now
     save
   end
   

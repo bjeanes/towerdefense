@@ -16,18 +16,16 @@ class GamesController < ApplicationController
     render :layout => false
   end
 
-  def take_login
-    redirect_to(:action => 'index') and return if params[:username].nil?
-    
+  def take_login    
     @user = User.new
     @user.session_id = session.session_id
     @user.username = params[:username]
     
-    if username_available?(params[:username]) && @user.save
+    if !params[:username].nil? && username_available?(params[:username]) && @user.save
       redirect_to :action => 'index'
     else
       flash[:error] = "That username is currently in use"
-      render :action => 'login'
+      render :action => 'login', :layout => false
     end
   end
 	

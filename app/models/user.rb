@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  COLOURS = %w{ 
+    0000ff ff00ff 0D9997
+    996429 18990B 6E4099
+    104599 999000 990900
+    426B99 }
+
   validates_presence_of :username, :session_id
   
   def active!
@@ -9,7 +15,6 @@ class User < ActiveRecord::Base
   def color; colour; end
   
   def before_create
-    colours = %w{0 1 2 3 4 5 6 8 9 a b c d e f}
-    self.colour = (1..6).to_a.collect{colours[rand(colours.size)]}.join
+    self.colour = COLOURS[rand(colours.size)]
   end
 end

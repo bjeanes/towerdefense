@@ -17,6 +17,8 @@ class GamesController < ApplicationController
   end
 
   def take_login
+    redirect_to(:action => 'index') and return if params[:username].nil?
+    
     @user = User.new
     @user.session_id = session.session_id
     @user.username = params[:username]

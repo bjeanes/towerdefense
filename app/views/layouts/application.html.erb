@@ -5,8 +5,32 @@
     <%= juggernaut :host => request.host, :debug => false %>
   </head>
   <body>
-      <%= yield %>
+    <div id="wrap">
+      <div id="main">
+        <%= yield %>
+      </div>
       
-      <p><a href="/concept/index.html">Flash Concept</a></p>
+      <div id="messages">
+        
+      </div>
+
+      <div id="text_input">
+        <%= form_remote_tag(
+              :url => { :action => :send_data },
+              :complete => "$('chat_input').value = '';" ) %>
+          <%= text_field_tag( 'chat_input', '', { :id => 'chat_input'} ) %>
+          <%= submit_tag "Send" %>
+        </form>
+      </div>
+    </div>
+
+    <div id="user_list">
+      <% User.active do |u| %>
+        <%= u.username %><br />
+      <% end %>
+    </div>
+      
+      
+    <p><a href="/concept/index.html">Flash Concept</a></p>
   </body>
 </html>

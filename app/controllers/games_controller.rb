@@ -8,10 +8,11 @@ class GamesController < ApplicationController
     end
     
     render :juggernaut => {:type => :send_to_all} do |page|
-      page.insert_html :bottom, 'chat_data', 
+      page.insert_html :bottom, 'messages', 
         "<span class=\"notice\" style=\"color:##{current_user.colour}\">
             #{h(current_user.username)} has signed in
         </span>"
+      page << "$('messages').scrollTop = $('messages').scrollHeight;"
     end
   end
   
@@ -33,15 +34,17 @@ class GamesController < ApplicationController
   end
 	
   def send_data
+    current_user.active!
+    
     render :juggernaut => {:type => :send_to_all} do |page|
-      page.insert_html :bottom, 'chat_data', 
+      page.insert_html :bottom, 'messages', 
         "<span class=\"message\">
           <span class=\"username\" style=\"color:##{current_user.colour}\">
             #{h(current_user.username)}:
           </span>
           #{h params[:chat_input]}
         </span>"
-      page << "$('chat_data').scrollTop = $('chat_data').scrollHeight;"
+      page << "$('messages').scrollTop = $('messages').scrollHeight;"
     end
     render :nothing => true
   end

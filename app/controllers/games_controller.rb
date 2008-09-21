@@ -20,12 +20,12 @@ class GamesController < ApplicationController
     @user = User.new
     @user.session_id = session.session_id
     @user.username = params[:username]
-    @user.active!
     
-    if @user.save
+    if username_available?(params[:username]) && @user.save
       redirect_to :action => 'index'
     else
-      render :action => :login
+      flash[:error] = "That username is currently in use"
+      render :action => 'login'
     end
   end
 	

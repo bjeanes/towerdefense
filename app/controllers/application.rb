@@ -18,9 +18,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    @current_user = User.find_by_session_id(session.session_id)
-  rescue
-    nil
+    @current_user ||= User.find_by_session_id(session.session_id)
   end
   
   def logged_in?

@@ -1,12 +1,8 @@
 class GamesController < ApplicationController
   before_filter :user_is_active, :except => :login
+  before_filter :authenticate, :except => :login
 
-  def index
-    unless logged_in?
-      redirect_to :action => 'login'
-      return
-    end
-    
+  def index    
     render :juggernaut => {:type => :send_to_all} do |page|
       page.insert_html :bottom, 'messages', 
         "<span class=\"notice\" style=\"color:##{current_user.colour}\">
@@ -54,4 +50,7 @@ class GamesController < ApplicationController
     current_user.active! if current_user
   end
   
+  def authenticate
+    redirect_to :action => 'login' unless logged_in?
+  end
 end

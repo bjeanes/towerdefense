@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_filter :user_is_active, :except => :login
-  before_filter :authenticate, :except => :login
+  before_filter :authenticate, :except => [:login, :take_login]
 
   def index    
     render :juggernaut => {:type => :send_to_all} do |page|

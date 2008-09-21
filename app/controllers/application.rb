@@ -14,8 +14,7 @@ class ApplicationController < ActionController::Base
   private
   
   def username_available?(username)
-    #User.find_by_username(username, :conditions => ['last_active > ? OR session_id = ""', 1.hour.ago])
-    true
+    User.active.find_by_username(username).nil?
   end
   
   def current_user

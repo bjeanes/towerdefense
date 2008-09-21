@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
     426B99 }
 
   validates_presence_of :username, :session_id
+
+  named_scope :active, lambda { { :conditions => ['last_active_at > ?', 2.minutes.ago] } }
   
   def active!
     self.last_active_at = Time.zone.now

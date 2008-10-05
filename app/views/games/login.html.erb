@@ -14,7 +14,7 @@
   <h1>Tower Defense Login</h1>
   <div id="login">
     <div id="errors">
-      <%=h flash[:error] %>
+      <%= error_messages_for :user, :header_message => nil, :message => nil %>
     </div>
     
     <% form_tag(:action => 'take_login') do %>

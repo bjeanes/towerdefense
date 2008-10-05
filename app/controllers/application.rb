@@ -11,12 +11,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
   
 
-  private
-  
-  def username_available?(username)
-    User.active.find_by_username(username).nil?
-  end
-  
+  private  
   def current_user
     @current_user ||= User.find_by_session_id(session.session_id)
   end

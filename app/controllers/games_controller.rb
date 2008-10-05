@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_filter :user_is_active, :except => :login
   before_filter :authenticate, :except => [:login, :take_login]
 
-  def index    
+  def show    
     render :juggernaut => {:type => :send_to_all} do |page|
       page.insert_html :bottom, 'messages', 
         "<span class=\"notice\" style=\"color:##{current_user.colour}\">
@@ -13,6 +13,7 @@ class GamesController < ApplicationController
   end
   
   def login
+    @user = User.new
     render :layout => false
   end
 
@@ -21,10 +22,9 @@ class GamesController < ApplicationController
     @user.session_id = session.session_id
     @user.username = params[:username]
     
-    if !params[:username].nil? && username_available?(params[:username]) && @user.save
+    if @user.save
       redirect_to :action => 'index'
     else
-      flash[:error] = "That username is currently in use"
       render :action => 'login', :layout => false
     end
   end
@@ -48,6 +48,8 @@ class GamesController < ApplicationController
   private
   def user_is_active
     current_user.active! if current_user
+  # rescue
+  #   redirect_to :action => 'login'
   end
   
   def authenticate

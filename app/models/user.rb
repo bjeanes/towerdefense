@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  
+  
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -33,5 +35,22 @@ class User < ActiveRecord::Base
 
   def login=(value)
     write_attribute :login, (value ? value.downcase : nil)
+  end
+  
+  protected
+  
+  def before_create
+    self.colour = random_colour
+    self.last_active_at = Time.zone.now
+  end
+  
+  def random_colour
+    @colours ||= %w{ 
+      0000ff ff00ff 0D9997
+      996429 18990B 6E4099
+      104599 999000 990900
+      426B99 }
+      
+    @colours.rand
   end
 end

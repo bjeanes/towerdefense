@@ -48,14 +48,14 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_towerdefence_session',
+    :session_key => '_towerdefense_session',
     :secret      => '4c5a66845e65268178578a1eab2e79204d333e32011bd651440a19327d1b8c480a4b34739a68e537a9ff5707b23eaa88750c67f1e61ad22f3a02443d0fdbebb5'
   }
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
-  # config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

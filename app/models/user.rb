@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  COLOURS = %w{ 
+  Colours = %w{ 
     0000ff ff00ff 0D9997
     996429 18990B 6E4099
     104599 999000 990900
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   protected
   
   def before_create
-    self.colour = COLOURS[rand(COLOURS.size)]
+    self.colour = Colours.rand
     self.last_active_at = Time.zone.now
   end
   

@@ -2,7 +2,11 @@
   <head>
     <%= stylesheet_link_tag :all, :cache => true %>
     <%= javascript_include_tag :defaults, :juggernaut %>
-    <%= juggernaut :host => request.host, :debug => false %>
+    <% unless current_user.nil? %>
+      <%= juggernaut :host => request.host, 
+            :debug => false,
+            :client_id => current_user.id %>
+    <% end %>
   </head>
   <body>
     <div id="wrap">

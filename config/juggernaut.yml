@@ -14,7 +14,7 @@
      # If a status code other than 200 is encountered, the subscription_request fails
      # and the client is disconnected.
      # 
-     # :subscription_url:  http://localhost:3000/sessions/juggernaut_subscription
+     :subscription_url:  http://towerdefense.local/sessions/juggernaut_subscription
 
      # === Broadcast and query authentication ===
      # Leave all broadcast/query options uncommented to allow anyone to broadcast/query.
@@ -68,7 +68,7 @@
      # Logout url is called when all connections from a subscribed client are closed.
      # Parameters passed are session_id and client_id.
      # 
-     # :logout_url: http://localhost:3000/sessions/juggernaut_logout
+     :logout_url: http://towerdefense.local/sessions/juggernaut_logout
 
      # === Miscellaneous ===
 

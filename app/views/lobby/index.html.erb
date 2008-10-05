@@ -2,7 +2,11 @@
   <head>
     <%= stylesheet_link_tag :all, :cache => true %>
     <%= javascript_include_tag :defaults, :juggernaut %>
-    <%= juggernaut :host => request.host, :client_id => current_user.id %>
+    <%= juggernaut \
+          :debug => false,
+          :host => request.host, 
+          :client_id => current_user.id,
+          :channels => ['lobby'] %>
   </head>
   <body>
     

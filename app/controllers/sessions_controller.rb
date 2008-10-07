@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')
   end
-
+  
 protected
   # Track failed login attempts
   def note_failed_signin

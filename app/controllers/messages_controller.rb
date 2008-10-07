@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
   # POST /messages.xml
   def create
     @message = Message.new(params[:message])
+    @message.sender = current_user
 
     respond_to do |format|
       if @message.save

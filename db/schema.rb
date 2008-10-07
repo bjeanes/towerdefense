@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081005130849) do
+ActiveRecord::Schema.define(:version => 20081007105116) do
 
   create_table "messages", :force => true do |t|
     t.integer  "sender_id"
@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20081005130849) do
     t.integer  "channel_id"
     t.text     "content"
     t.boolean  "sent"
-    t.string   "type"
+    t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -9,6 +9,21 @@
           :channels => ['lobby'] %>
   </head>
   <body>
-    
+    <div id="chat">
+      <div id="messages">
+        <% @messages.each do |message| %>
+          <div><span><%= message.sender.login %></span> <%= message.content %></div>
+        <% end %>
+      </div>
+      <div id="text_input">
+        <%= form_remote_tag(
+              :url => messages_path,
+              :complete => "$('message_content').value = '';" ) %>
+          <%= text_field_tag 'message[content]', '', { :id => 'message_content'} %>
+          <%= hidden_field_tag 'message[kind]', 'lobby', {:id => 'message_kind'}%>
+          <%= submit_tag "Send" %>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

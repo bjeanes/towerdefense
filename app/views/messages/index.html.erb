@@ -7,7 +7,7 @@
     <th>Channel</th>
     <th>Content</th>
     <th>Sent</th>
-    <th>Type</th>
+    <th>Kind</th>
   </tr>
 
 <% for message in @messages %>
@@ -17,7 +17,7 @@
     <td><%=h message.channel_id %></td>
     <td><%=h message.content %></td>
     <td><%=h message.sent %></td>
-    <td><%=h message.type %></td>
+    <td><%=h message.kind %></td>
     <td><%= link_to 'Show', message %></td>
     <td><%= link_to 'Edit', edit_message_path(message) %></td>
     <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -12,6 +12,8 @@ class StreamController < ApplicationController
       logger.debug("  session:    #{session.inspect}")
       render :text => "403", :status => 403
     else
+      user = User.find(session[:user_id])
+      user.online!
       render :nothing => true
     end
   end

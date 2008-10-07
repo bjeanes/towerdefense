@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :channel_id, :if => :channel_required?
   
-  named_scope :lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}, :order => :created_at
+  named_scope :lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}, :order => 'created_at desc'
   
   protected
   

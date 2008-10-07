@@ -48,9 +48,32 @@ class MessagesController < ApplicationController
         flash[:notice] = 'Message was successfully created.'
         format.html { redirect_to(@message) }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
+        format.js  do
+          opts = {:juggernaut => {
+            :type => :send_to_channel,
+            :channel => 'lobby'
+          }}
+          
+          render opts do |p|
+            p.insert_html :bottom, 'messages', :partial => 'messages/message', :object => @message
+          end
+          render :nothing => true
+        end
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
+        format.js  do
+          opts = {:juggernaut => {
+            :type => :send_to_client_on_channel, 
+            :client_id => current_user.id,
+            :channel => ['lobby']
+          }}
+          
+          render opts do |p|
+            p.insert_html :bottom, 'messages', :partial => 'messages/error', :object => @message
+          end
+          render :nothing => true
+        end
       end
     end
   end

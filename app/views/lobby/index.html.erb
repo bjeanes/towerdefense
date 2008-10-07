@@ -11,9 +11,7 @@
   <body>
     <div id="chat">
       <div id="messages">
-        <% @messages.each do |message| %>
-          <div><span><%= message.sender.login %></span> <%= message.content %></div>
-        <% end %>
+        <%= render :partial => 'messages/message', :collection => @messages %>
       </div>
       <div id="text_input">
         <%= form_remote_tag(

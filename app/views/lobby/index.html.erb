@@ -28,7 +28,7 @@
         </form>
       </div>
       <div id="users">
-        
+        <%= render :partial => 'user_list', :locals => {:users => User.online} %>
       </div>
     </div>
   </body>

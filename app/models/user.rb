@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :login, :password, :password_confirmation
   
-  named_scope :online, :conditions => {:online => true, :order => :login}
+  named_scope :online, :conditions => {:online => true}, :order => :login
   
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
@@ -25,11 +25,13 @@ class User < ActiveRecord::Base
   end
   
   def online!
-    update_attributes({:online => true})
+    online = true
+    save!
   end
   
   def offline!
-    update_attributes({:online => false})
+    online = false
+    save!
   end
   
   def to_s; login; end

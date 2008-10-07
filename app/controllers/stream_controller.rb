@@ -1,10 +1,14 @@
 class StreamController < ApplicationController
   def part
     # This should remove us from a game/channel
+    
+    # should do a render juggernaut and tell all user lists in parted channels to refresh
+    render :nothing => true
   end
   
   def disconnect
     request_user.offline! if request_valid?
+    render :nothing => true
   end
   
   def join
@@ -12,6 +16,8 @@ class StreamController < ApplicationController
       request_user.online!
       
       # This should add the request_user to a game/lobby
+      
+      # this should push current user name onto all channel user lists
       
       render :nothing => true
     else

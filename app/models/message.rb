@@ -17,6 +17,10 @@ class Message < ActiveRecord::Base
     channel_id
   end
   
+  def timestamp
+    created_at.strftime("%H:%M")
+  end
+  
   protected
   
     def recipient_required?

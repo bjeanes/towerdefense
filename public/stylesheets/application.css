@@ -1,4 +1,6 @@
-/* @override http://towerdefense.local/stylesheets/scaffold.css?1223388921 */
+/* @override
+	http://towerdefense.local/stylesheets/application.css?1223390273
+*/
 
 body { background-color: #fff; color: #333; }
 
@@ -47,6 +49,7 @@ div#chat div#messages div.history {
 
 div#chat div#messages div.history div.marker {
 	text-align: center;
+	font-weight: bolder;
 } 
 
 div#chat div#messages div.error {

@@ -1,6 +1,7 @@
 <div class="message">
+  [<%= message.timestamp %>]
   <span class="sender" style="color:#<%= message.sender.colour %>">
-    <%= message.sender.login %>
+    <%= message.sender %>
   </span>: 
   
   <%= message.content %>

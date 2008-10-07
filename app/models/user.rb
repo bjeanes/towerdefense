@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
     update_attributes({:online => false})
   end
   
+  def to_s; login; end
+  
   protected
   
   def before_create

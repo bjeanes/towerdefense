@@ -1,0 +1,59 @@
+/* @override http://towerdefense.local/stylesheets/scaffold.css?1223388921 */
+
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+
+body#login div.form
+{
+	border: 2px dashed #333;
+	padding: 20px;
+	width: 200px;
+	margin: auto;
+	margin-top: 50px;
+}
+
+div#chat {
+	border: 1px solid #333;
+}
+
+div#chat div#messages {
+	border-bottom: 1px solid #333;
+	height: 150px;
+	overflow-x:auto;
+}
+
+div#chat div#messages div.message span {
+	font-weight: bold;
+}
+
+div#chat div#messages div.history {
+	background-color: #eee;
+	opacity: .5;
+}
+
+div#chat div#messages div.history div.marker {
+	text-align: center;
+} 
+
+div#chat div#messages div.error {
+	font-style: italic;
+	color: #676767;
+}
+
+div#chat div#messages div.error span{
+	font-weight: normal;
+}

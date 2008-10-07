@@ -1,16 +1,27 @@
-<h1>Log In</h1>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Login</title>
+    <%= stylesheet_link_tag :all, :cache => true %>
+  </head>
+  <body id="login">
+    <div class="form">    
+      <h1>Log In</h1>
 
-<% form_tag session_path do -%>
-<p><%= label_tag 'login' %><br />
-<%= text_field_tag 'login', @login %></p>
+      <% form_tag session_path do -%>
+      <p><%= label_tag 'login' %><br />
+      <%= text_field_tag 'login', @login %></p>
 
-<p><%= label_tag 'password' %><br/>
-<%= password_field_tag 'password', nil %></p>
+      <p><%= label_tag 'password' %><br/>
+      <%= password_field_tag 'password', nil %></p>
 
-<p><%= check_box_tag 'remember_me', '1', @remember_me %>
-<%= label_tag 'remember_me', 'Remember me' %></p>
+      <p><%= check_box_tag 'remember_me', '1', @remember_me %>
+      <%= label_tag 'remember_me', 'Remember me' %></p>
 
-<p><%= submit_tag 'Log in' %></p>
-<% end -%>
+      <p><%= submit_tag 'Log in' %></p>
+      <% end -%>
 
-<%= link_to "Create account", signup_path %>
+      <%= link_to "Create account", signup_path %>
+    </div>
+  </body>
+</html>

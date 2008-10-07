@@ -1,1 +1,7 @@
-<div class="message"><span class="sender"><%= message.sender.login %></span>: <%= message.content %></div>
+<div class="message">
+  <span class="sender" style="color:#<%= message.sender.colour %>">
+    <%= message.sender.login %>
+  </span>: 
+  
+  <%= message.content %>
+</div>

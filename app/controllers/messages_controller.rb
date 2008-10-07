@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
     @message.sender = current_user
 
     respond_to do |format|
-      if @message.save
+      if Juggernaut.client_in_channel?(current_user.id, @message.channel) && @message.save
         flash[:notice] = 'Message was successfully created.'
         format.html { redirect_to(@message) }
         format.xml  { render :xml => @message, :status => :created, :location => @message }

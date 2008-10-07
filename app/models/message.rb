@@ -11,6 +11,12 @@ class Message < ActiveRecord::Base
   
   named_scope :lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}, :order => 'created_at desc'
   
+  def channel
+    return kind if kind == 'lobby'
+    
+    channel_id
+  end
+  
   protected
   
     def recipient_required?

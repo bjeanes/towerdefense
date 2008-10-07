@@ -11,7 +11,9 @@
   <body>
     <div id="chat">
       <div id="messages">
-        <%= render :partial => 'messages/message', :collection => @messages %>
+        <div class="history">
+          <%= render :partial => 'messages/message', :collection => @messages %>
+        </div>
       </div>
       <div id="text_input">
         <%= form_remote_tag(

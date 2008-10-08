@@ -2,6 +2,8 @@
      # Juggernaut Options
      # ======================
 
+     :log_path: log/juggernaut.log
+
      # === Subscription authentication ===
      # Leave all subscription options uncommented to allow anyone to subscribe.
 
@@ -76,7 +78,9 @@
      # and a logout_request or logout_connection_request is made. The reason for this is that a client
      # may only temporarily be disconnected, and may attempt a reconnect very soon.
      # 
-     :timeout: 30
+     :timeout: 5
+     :cleanup_timer: 5
+     :pid_path: tmp/pids/juggernaut.pid
 
      # store_messages defaults to false. If this option is true, messages send to connections will be stored. 
      # This is useful since a client can then receive broadcasted message that it has missed (perhaps it was disconnected).

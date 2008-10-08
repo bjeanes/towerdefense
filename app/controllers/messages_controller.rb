@@ -57,6 +57,7 @@ class MessagesController < ApplicationController
           render opts do |p|
             p.insert_html :bottom, 'messages', :partial => 'messages/message', :object => @message
           end
+          @message.sent!
           render :nothing => true
         end
       else

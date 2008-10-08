@@ -21,6 +21,11 @@ class Message < ActiveRecord::Base
     created_at.strftime("%H:%M")
   end
   
+  def sent!
+    sent = true
+    save!
+  end
+  
   protected
   
     def recipient_required?

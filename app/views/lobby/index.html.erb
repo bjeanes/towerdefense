@@ -1,9 +1,8 @@
 <html>
   <head>
     <%= stylesheet_link_tag :all %>
-    <%= javascript_include_tag :defaults, :juggernaut %>
+    <%= javascript_include_tag :defaults, :juggernaut, 'chat' %>
     <%= juggernaut \
-          :debug => false,
           :host => request.host, 
           :client_id => current_user.id,
           :channels => ['lobby'] %>
@@ -22,9 +21,14 @@
         <%= form_remote_tag(
               :url => messages_path,
               :complete => "$('message_content').value = '';" ) %>
-          <%= text_field_tag 'message[content]', '', { :id => 'message_content'} %>
+          <%= text_field_tag 'message[content]', '', 
+              { :id => 'message_content', 
+                :disabled => true} %>
           <%= hidden_field_tag 'message[kind]', 'lobby', {:id => 'message_kind'}%>
-          <%= submit_tag "Send" %>
+          <%= submit_tag "Send", {:id => "message_send", :disabled => true} %>
+          <div id="chat_status">
+            
+          </div>
         </form>
       </div>
       <div id="users">

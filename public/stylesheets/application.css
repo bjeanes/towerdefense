@@ -19,11 +19,11 @@ pre {
 a { color: #000; }
 a:visited { color: #666; }
 
-body#login div.form
+body#login div.form,body#register div.form
 {
 	border: 2px dashed #333;
 	padding: 20px;
-	width: 200px;
+	width: 300px;
 	margin: auto;
 	margin-top: 50px;
 }

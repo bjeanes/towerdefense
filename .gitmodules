@@ -7,3 +7,6 @@
 [submodule "vendor/plugins/juggernaut"]
 	path = vendor/plugins/juggernaut
 	url = git://github.com/bjeanes/juggernaut_plugin.git
+[submodule "vendor/plugins/footnotes"]
+	path = vendor/plugins/footnotes
+	url = git://github.com/drnic/rails-footnotes.git

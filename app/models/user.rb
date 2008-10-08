@@ -25,12 +25,12 @@ class User < ActiveRecord::Base
   end
   
   def online!
-    online = true
+    self.online = true
     save!
   end
   
   def offline!
-    online = false
+    self.online = false
     save!
   end
   

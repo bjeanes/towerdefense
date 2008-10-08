@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.offline!
     logout_killing_session!
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')

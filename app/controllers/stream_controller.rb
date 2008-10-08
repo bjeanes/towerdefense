@@ -1,4 +1,6 @@
 class StreamController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  
   def part
     if request_valid?
       # This should remove us from a game/channel

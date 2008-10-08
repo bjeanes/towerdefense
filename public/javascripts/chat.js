@@ -15,6 +15,12 @@ document.observe("juggernaut:disconnected", function(event) {
   $('message_send').disable();
 });
 
+document.observe("juggernaut:errorConnecting", function(event) {
+  setStatus('Error connecting!');
+  $('message_content').disable();
+  $('message_send').disable();
+});
+
 document.observe("juggernaut:initialized", function(event) {
   setStatus('Connecting...');
 });

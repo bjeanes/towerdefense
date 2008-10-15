@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :login, :password, :password_confirmation
   
-  has_many :playerships, :foreign_key => 'player_id', :dependent => true
+  has_many :playerships, :foreign_key => 'player_id', :dependent => :destroy
   has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "created_at desc"
   has_many :games, :through => :playerships do
     def active

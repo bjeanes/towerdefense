@@ -4,4 +4,10 @@ class Playership < ActiveRecord::Base
   
   validates_associated :player, :game
   validates_presence_of :player, :game
+  
+  def before_create
+    if self.class.first(:conditions => {:game_id => game.id}).nil?
+      self[:owner] = true
+    end
+  end
 end

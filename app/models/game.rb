@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  has_many :playerships
+  has_many :playerships, :dependent => true
   has_many :players, :through => :playerships
   
   validates_associated :playerships

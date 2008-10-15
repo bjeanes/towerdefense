@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   
   attr_accessible :login, :password, :password_confirmation
   
+  has_one :game, :through => Playerships, :conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL", :order => "created_at desc"
+  has_many :games, :through => Playerships
+  
   named_scope :online, :conditions => {:online => true}, :order => :login
   
   def self.authenticate(login, password)

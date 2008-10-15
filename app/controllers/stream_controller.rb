@@ -6,10 +6,10 @@ class StreamController < ApplicationController
       # This should remove us from a game/channel
     
       # should do a render juggernaut and tell all user lists in parted channels to refresh
-      request_user # call this to set instance variable
+      message = "<div class=\"message\">-&gt; #{request_user} has disconnected</div>"
       render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
         # have to use @request_user here else get method_missing (block scope is in ActionView)
-        page.insert_html :bottom, 'messages', "<div class=\"message\">-&gt; #{@request_user} has disconnected</div>"
+        page.insert_html :bottom, 'messages', message
         page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
       end
     end
@@ -18,9 +18,11 @@ class StreamController < ApplicationController
   
   def disconnect
     request_user.offline! if request_valid?
+    
+    message = "<div class=\"message\">-&gt; #{request_user} has quit</div>"
     render :juggernaut => {:type => :send_to_all} do |page|
       # have to use @request_user here else get method_missing (block scope is in ActionView)
-      page.insert_html :bottom, 'messages', "<div class=\"message\">-&gt; #{@request_user} has quit</div>"
+      page.insert_html :bottom, 'messages', message
       page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
     end
     render :nothing => true
@@ -30,12 +32,14 @@ class StreamController < ApplicationController
     if request_valid?
       request_user.online!
       
+      message = "<div class=\"message\">-&gt; #{request_user} has connected</div>"
+      
       # This should add the request_user to a game/lobby
       
       # this should push current user name onto all channel user lists
       render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
         # have to use @request_user here else get method_missing (block scope is in ActionView)
-        page.insert_html :bottom, 'messages', "<div class=\"message\">-&gt; #{@request_user} has connected</div>"
+        page.insert_html :bottom, 'messages', message
         page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
       end
       

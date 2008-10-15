@@ -25,11 +25,6 @@ class MessagesController < ApplicationController
   # GET /messages/new.xml
   def new
     @message = Message.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @message }
-    end
   end
 
   # GET /messages/1/edit
@@ -44,37 +39,13 @@ class MessagesController < ApplicationController
     @message.sender = current_user
 
     respond_to do |format|
-      if Juggernaut.client_in_channel?(current_user.id, @message.channel) && @message.save
+      if in_channel?(@message.channel) && @message.save
         flash[:notice] = 'Message was successfully created.'
         format.html { redirect_to(@message) }
-        format.xml  { render :xml => @message, :status => :created, :location => @message }
-        format.js  do
-          opts = {:juggernaut => {
-            :type => :send_to_channel,
-            :channel => 'lobby'
-          }}
-          
-          render opts do |p|
-            p.insert_html :bottom, 'messages', :partial => 'messages/message', :object => @message
-          end
-          @message.sent!
-          render :nothing => true
-        end
+        format.js   { send_to_lobby(@message) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
-        format.js  do
-          opts = {:juggernaut => {
-            :type => :send_to_client_on_channel, 
-            :client_id => current_user.id,
-            :channel => ['lobby']
-          }}
-          
-          render opts do |p|
-            p.insert_html :bottom, 'messages', :partial => 'messages/error', :object => @message
-          end
-          render :nothing => true
-        end
+        # format.js   { send_to_user_in_lobby(@message, :error => true) }
       end
     end
   end
@@ -88,10 +59,8 @@ class MessagesController < ApplicationController
       if @message.update_attributes(params[:message])
         flash[:notice] = 'Message was successfully updated.'
         format.html { redirect_to(@message) }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -104,7 +73,6 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(messages_url) }
-      format.xml  { head :ok }
     end
   end
 end

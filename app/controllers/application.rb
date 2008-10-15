@@ -3,18 +3,25 @@
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
-  helper :all # include all helpers, all the time
-
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
+  helper :all
   protect_from_forgery :secret => '94a45eddfc4f90ebf9470b5d5271ad35'
-  
-  # See ActionController::Base for details 
-  # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password"). 
   filter_parameter_logging :password, :password_confirmation
   
   protected
+  def in_channel?(channel)
+    Juggernaut.client_in_channel?(current_user.id, channel)
+  end
+  
+  def send_to_lobby(message, options = {})
+    message = render_to_string(:partial => 'messages/message', :object => message)
+    message = 'receiveMessage("%s");' % message.gsub(/\"/, '\"').gsub(/\n|\r/,'') # escape double quotes and remove new lines
+    logger.debug(message)
+    
+    Juggernaut.send_to_channel(message, 'lobby')
+    
+    render :nothing => true
+  end
+  
   def session_data_by_id(id)
     CGI::Session::ActiveRecordStore::Session.find_by_session_id(id).data
   rescue

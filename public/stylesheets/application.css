@@ -1,5 +1,6 @@
-/* @override
+/* @override 
 	http://towerdefense.local/stylesheets/application.css?1223390273
+	http://towerdefense.local/stylesheets/application.css?1223421364
 */
 
 body { background-color: #fff; color: #333; }
@@ -30,6 +31,20 @@ body#login div.form,body#register div.form
 
 div#chat {
 	border: 1px solid #333;
+	float: left;
+	width: 75%;
+}
+
+div#users {
+	/*width: 20%;*/
+	max-width:23%;
+	float: left;
+	
+	padding-left:5px;
+}
+
+div#users span {
+	display: block;
 }
 
 div#chat div#messages {

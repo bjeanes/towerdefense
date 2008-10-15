@@ -18,7 +18,7 @@ class Message < ActiveRecord::Base
   end
   
   def timestamp
-    created_at.strftime("%H:%M")
+    created_at.strftime("%d %b %y @ %H:%M")
   end
   
   def sent!

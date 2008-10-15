@@ -18,22 +18,22 @@
         </div>
       </div>
       <div id="text_input">
-        <%= form_remote_tag(
-              :url => messages_path,
-              :complete => "$('message_content').value = '';" ) %>
+        <form method="post" action="<%= messages_path %>" id="send_message_form">
           <%= text_field_tag 'message[content]', '', 
               { :id => 'message_content', 
                 :disabled => true} %>
           <%= hidden_field_tag 'message[kind]', 'lobby', {:id => 'message_kind'}%>
+          <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
           <%= submit_tag "Send", {:id => "message_send", :disabled => true} %>
-          <div id="chat_status">
-            
-          </div>
         </form>
+        
+        <div id="chat_status">
+          
+        </div>
       </div>
-      <div id="users">
-        <%= render :partial => 'user_list', :locals => {:users => User.online} %>
-      </div>
+    </div>
+    <div id="users">
+      <%= render :partial => 'user_list', :locals => {:users => User.online} %>
     </div>
   </body>
 </html>

@@ -4,4 +4,8 @@ class LobbyController < ApplicationController
   def index
     @messages = Message.lobby.all(:limit => 5).reverse
   end
+  
+  def redirect_to_lobby
+    redirect_to :action => :index
+  end
 end

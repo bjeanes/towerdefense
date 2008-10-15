@@ -12,8 +12,13 @@ class User < ActiveRecord::Base
   
   attr_accessible :login, :password, :password_confirmation
   
-  has_one :game, :through => Playerships, :conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL", :order => "created_at desc"
-  has_many :games, :through => Playerships
+  has_many :playerships, :foreign_key => 'player_id'
+  has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "created_at desc"
+  has_many :games, :through => :playerships do
+    def active
+      all(:conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL")
+    end
+  end
   
   named_scope :online, :conditions => {:online => true}, :order => :login
   
@@ -35,6 +40,10 @@ class User < ActiveRecord::Base
   def offline!
     self.online = false
     save!
+  end
+  
+  def create_game
+    Game.create_with_owner(self)
   end
   
   def to_s; login; end

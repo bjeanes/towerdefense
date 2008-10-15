@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081007144152) do
+ActiveRecord::Schema.define(:version => 20081015092010) do
+
+  create_table "games", :force => true do |t|
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", :force => true do |t|
     t.integer  "sender_id"

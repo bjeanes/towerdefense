@@ -1,11 +1,11 @@
 class CreatePlayerships < ActiveRecord::Migration
   def self.up
     create_table :playerships do |t|
-      t.integer :game_id
-      t.integer :player_id
-      t.boolean :owner
-      t.integer :money
-      t.integer :lives
+      t.integer :game_id,   :null => false
+      t.integer :player_id, :null => false
+      t.boolean :owner,     :default => false
+      t.integer :money,     :default => 0
+      t.integer :lives,     :default => 0
 
       t.timestamps
     end

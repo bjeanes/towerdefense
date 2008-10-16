@@ -9,7 +9,7 @@ class GameController < ApplicationController
     flash[:error] = "You must join a game"
     redirect_to lobby_path
   end
-  
+
   # TODO - make sure we are removed from all other games before joining a new one
   def join
     game = Game.find(params[:id])

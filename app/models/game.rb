@@ -2,8 +2,6 @@ class Game < ActiveRecord::Base
   has_many :playerships, :dependent => :destroy
   has_many :players, :through => :playerships
   
-  # validates_associated :playerships
-  
   # Games that can be joined
   named_scope :open, :conditions => 'started_at IS NULL', :include => :players
   

@@ -23,7 +23,8 @@
           <%= text_field_tag 'message[content]', '', 
               { :id => 'message_content', 
                 :disabled => true} %>
-          <%= hidden_field_tag 'message[kind]', 'lobby', {:id => 'message_kind'}%>
+          <%= hidden_field_tag 'message[kind]', 'channel', {:id => 'message_kind'}%>
+          <%= hidden_field_tag 'message[channel_id]', @game.id, { :id => 'message_channel' } %>
           <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
           <%= submit_tag "Send", {:id => "message_send", :disabled => true} %>
         </form>

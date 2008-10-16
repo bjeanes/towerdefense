@@ -25,8 +25,11 @@ class Message < ActiveRecord::Base
   }
 
   named_scope :for_channel, for_channel_block
-    
-  
+
+  def lobby?
+    channel == 'lobby'
+  end
+
   def channel
     return kind if kind == 'lobby'
     

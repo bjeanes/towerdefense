@@ -12,13 +12,12 @@ class ApplicationController < ActionController::Base
     Juggernaut.client_in_channel?(current_user.id, channel)
   end
   
-  def send_message(message, options = {})
-    channel = message.channel
-    message = render_to_string(:partial => 'messages/message', :object => message)
+  def send_message
+    message = render_to_string(:partial => 'messages/message', :object => @message)
     message = 'receiveMessage("%s");' % message.gsub(/\"/, '\"').gsub(/\n|\r/,'') # escape double quotes and remove new lines
     logger.debug(message)
     
-    Juggernaut.send_to_channel(message, channel)
+    Juggernaut.send_to_channel(message, @message.channel)
     
     render :nothing => true
   end

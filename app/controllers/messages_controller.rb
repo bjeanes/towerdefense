@@ -42,9 +42,7 @@ class MessagesController < ApplicationController
       if in_channel?(@message.channel) && @message.save
         flash[:notice] = 'Message was successfully created.'
         format.html { redirect_to(@message) }
-        format.js   do
-          send_message(@message)
-        end
+        format.js   { send_message }
       else
         format.html { render :action => "new" }
         # format.js   { send_to_user_in_lobby(@message, :error => true) }

@@ -10,10 +10,12 @@ class GameController < ApplicationController
   end
   
   def join
-    # can only join a game if:
-    #   game_id provided
-    #   game is open
-    #   user has not previously left the game
-    #   user is not already in game
+    game = Game.find(params[:id])
+    game.join(current_user)
+    
+    redirect_to game_path
+  rescue
+    flash[:error] = "That is not a game that can be joined"
+    redirect_to lobby_path
   end
 end

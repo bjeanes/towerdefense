@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'stream/:action', :controller => 'stream'
   map.lobby 'lobby', :controller => "lobby"
   map.game 'game', :controller => "game"
-  map.join_game 'game/join', :controller => "game", :action => "join"
+  map.join_game 'game/join/:id', :controller => "game", :action => "join"
   
   map.root :controller => "lobby", :action => "redirect_to_lobby"
 end

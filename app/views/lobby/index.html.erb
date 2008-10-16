@@ -9,6 +9,16 @@
     <title>Tower Defense Lobby</title>
   </head>
   <body id="lobby">
+    <h3>Open Games <span>(games you can join)</span></h3>
+    <div id="games">
+      <ul>
+        <% Game.open.each do |game| %>
+          <li><a href="<%= join_game_path(game) %>"><%= game.name %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <h3>Lobby Chat</h3>
     <div id="chat">
       <div id="messages">
         <div class="history">

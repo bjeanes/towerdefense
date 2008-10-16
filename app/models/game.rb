@@ -11,9 +11,36 @@ class Game < ActiveRecord::Base
   named_scope :active, :conditions => 'concluded_at IS NULL AND started_at IS NOT NULL', :include => :players
   
   # Games that have finished
-  named_scope :concluded, :conditions => 'concluded_at IS NULL'
+  named_scope :concluded, :conditions => 'concluded_at IS NOT NULL'
   
   def concluded?
     !concluded_at.nil?    
+  end
+  
+  # can only join a game if:
+  #   game_id provided
+  #   game is open
+  #   user has not previously left the game
+  #   user was kicked out
+  #   user is not already in game
+  
+  def join(user)  
+    raise "Can not join this game" unless open?
+    
+    players << user
+    save!
+  end
+  
+  # States:
+  def open?
+    started_at.nil?
+  end
+  
+  def active?
+    !started_at.nil? && concluded_at.nil?
+  end
+  
+  def concluded?
+    !concluded_at.nil?
   end
 end

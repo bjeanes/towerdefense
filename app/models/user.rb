@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def current_game
-    games.active.first
+    games.active.first || games.open.first
   end
 
   def login=(value)

@@ -11,7 +11,7 @@ class StreamController < ApplicationController
       render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
         # have to use @request_user here else get method_missing (block scope is in ActionView)
         page.insert_html :bottom, 'messages', message
-        page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
+        page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
       end
     end
     render :nothing => true
@@ -24,7 +24,7 @@ class StreamController < ApplicationController
     render :juggernaut => {:type => :send_to_all} do |page|
       # have to use @request_user here else get method_missing (block scope is in ActionView)
       page.insert_html :bottom, 'messages', message
-      page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
+      page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
     end
     render :nothing => true
   end
@@ -41,7 +41,7 @@ class StreamController < ApplicationController
       render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
         # have to use @request_user here else get method_missing (block scope is in ActionView)
         page.insert_html :bottom, 'messages', message
-        page.replace_html 'users', :partial => 'lobby/user_list', :locals => {:users => User.online}
+        page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
       end
       
       render :nothing => true

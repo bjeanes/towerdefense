@@ -3,7 +3,8 @@ class GameController < ApplicationController
   
   def index
     # Display current game or redirect to lobby
-    @messages = Message.history.for_channel(current_user.current_game).reverse
+    @game = current_user.current_game
+    @messages = Message.history.for_channel(@game).reverse
   rescue
     flash[:error] = "You must join a game"
     redirect_to lobby_path

@@ -14,6 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   # Static routes
   map.connect 'stream/:action', :controller => 'stream'
   map.connect 'lobby', :controller => "lobby"
+  map.connect 'game', :controller => "game"
+  map.connect 'game/join', :controller => "game", :action => "join"
   
   map.root :controller => "lobby", :action => "redirect_to_lobby"
 end

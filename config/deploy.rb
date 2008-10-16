@@ -21,6 +21,7 @@ ssh_options[:keys] = %w(~/.ssh/id_dsa)
  
 before 'deploy:cold', 'deploy:upload_database_yml'
 after 'deploy:symlink', 'deploy:create_symlinks'
+after 'deploy', 'deploy:start_juggernaut'
  
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
@@ -44,5 +45,10 @@ namespace :deploy do
     # run "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
     run "rm -f #{release_path}/config/database.yml"
     run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
+  end
+  
+  desc "Start juggernaut on the server"
+  task 'start_juggernaut' do
+    run "cd #{current_path} && rake juggernaut:run"
   end
 end

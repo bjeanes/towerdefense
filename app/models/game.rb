@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   has_many :playerships, :dependent => :destroy
   has_many :players, :through => :playerships
   
-  validates_associated :playerships
+  # validates_associated :playerships
   
   # Games that can be joined
   named_scope :open, :conditions => 'started_at IS NULL', :include => :players
@@ -24,6 +24,10 @@ class Game < ActiveRecord::Base
     
     players << user
     save!
+  end
+  
+  def has_player?(player)
+    players.include? player
   end
   
   # States:

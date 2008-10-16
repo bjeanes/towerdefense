@@ -13,9 +13,19 @@ class Message < ActiveRecord::Base
   named_scope :history, :limit => 5, :order => 'created_at DESC'
   
   named_scope :for_lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}
-  named_scope :for_channel, 
-    lambda { |channel| {:conditions => 
-      {:kind => 'channel', :channel_id => channel.id, :recipient_id => nil}}}
+
+  for_channel_block = lambda { |channel| 
+    raise "Missing game object for message finder" if channel.nil?
+    {
+      :conditions => {
+      :kind => 'channel', 
+      :channel_id => channel.id, 
+      :recipient_id => nil}
+    }
+  }
+
+  named_scope :for_channel, for_channel_block
+    
   
   def channel
     return kind if kind == 'lobby'

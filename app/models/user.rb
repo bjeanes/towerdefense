@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   
   has_many :playerships, :foreign_key => 'player_id', :dependent => :destroy
   has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "games.created_at desc"
+  
   has_many :games, :through => :playerships do
     def active
       all(:conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL")
@@ -26,6 +27,10 @@ class User < ActiveRecord::Base
     return nil if login.blank? || password.blank?
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
+  end
+
+  def current_game
+    games.active.first
   end
 
   def login=(value)

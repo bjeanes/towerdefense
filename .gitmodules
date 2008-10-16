@@ -3,7 +3,7 @@
 	url = git://github.com/technoweenie/restful-authentication.git
 [submodule "vendor/gems/juggernaut"]
 	path = vendor/gems/juggernaut
-	url = git://github.com/maccman/juggernaut_gem.git
+	url = git://github.com/bjeanes/juggernaut_gem.git
 [submodule "vendor/plugins/juggernaut"]
 	path = vendor/plugins/juggernaut
 	url = git://github.com/bjeanes/juggernaut_plugin.git

@@ -5,8 +5,8 @@
     <%= juggernaut \
           :host => request.host, 
           :client_id => current_user.id,
-          :channels => ['lobby'] %>
-    <title>Tower Defense Lobby</title>
+          :channels => [@game.id] %>
+    <title>Tower Defense Game: <%= @game.name %></title>
   </head>
   <body id="lobby">
     <div id="chat">

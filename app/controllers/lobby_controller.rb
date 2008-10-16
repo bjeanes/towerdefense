@@ -2,7 +2,7 @@ class LobbyController < ApplicationController
   before_filter :login_required
   
   def index
-    @messages = Message.lobby.all(:limit => 5).reverse
+    @messages = Message.history.for_lobby.reverse
   end
   
   def redirect_to_lobby

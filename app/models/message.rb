@@ -9,7 +9,13 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :channel_id, :if => :channel_required?
   
-  named_scope :lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}, :order => 'created_at desc'
+  # the order should be reversed for logical display in view for history
+  named_scope :history, :limit => 5, :order => 'created_at DESC'
+  
+  named_scope :for_lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}
+  named_scope :for_channel, 
+    lambda { |channel| {:conditions => 
+      {:kind => 'channel', :channel_id => channel.id, :recipient_id => nil}}}
   
   def channel
     return kind if kind == 'lobby'

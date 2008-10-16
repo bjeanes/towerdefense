@@ -3,6 +3,7 @@ class GameController < ApplicationController
   
   def index
     # Display current game or redirect to lobby
+    @messages = Message.history.for_channel(current_user.game).reverse
   end
   
   def join

@@ -4,6 +4,7 @@ class StreamController < ApplicationController
   def part
     if request_valid?
       # This should remove us from a game/channel
+      request_user.offline!
     
       # should do a render juggernaut and tell all user lists in parted channels to refresh
       message = "<div class=\"message\">-&gt; #{request_user} has disconnected</div>"

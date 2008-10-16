@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081015092010) do
+ActiveRecord::Schema.define(:version => 20081015092142) do
 
   create_table "games", :force => true do |t|
     t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "concluded_at"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(:version => 20081015092010) do
     t.text     "content"
     t.boolean  "sent"
     t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "playerships", :force => true do |t|
+    t.integer  "game_id",                       :null => false
+    t.integer  "player_id",                     :null => false
+    t.boolean  "owner",      :default => false
+    t.integer  "money",      :default => 0
+    t.integer  "lives",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

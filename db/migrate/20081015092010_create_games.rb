@@ -2,7 +2,7 @@ class CreateGames < ActiveRecord::Migration
   def self.up
     create_table :games do |t|
       t.datetime :started_at
-      t.datetime :completed_at
+      t.datetime :concluded_at
       t.string :name
 
       t.timestamps

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :password, :password_confirmation
   
   has_many :playerships, :foreign_key => 'player_id', :dependent => :destroy
-  has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "created_at desc"
+  has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "games.created_at desc"
   has_many :games, :through => :playerships do
     def active
       all(:conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL")
@@ -42,8 +42,16 @@ class User < ActiveRecord::Base
     save!
   end
   
+  # Creates a game, adds the current user as a player, and sets the player as the game owner
   def create_game
-    Game.create_with_owner(self)
+    if game.nil? || game.concluded?
+      p = playerships.build(:owner => true)
+      p.game = Game.new(:name => "#{login}'s Game")
+    
+      p.save && self.game(true) # load the new game
+    else
+      false
+    end
   end
   
   def to_s; login; end

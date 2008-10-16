@@ -1,4 +1,4 @@
 desc "Runs juggernaut server in background"
 task 'juggernaut:run' do
-  `sudo juggernaut -d -c config/juggernaut.yml`
+  `sudo juggernaut -e -d -c config/juggernaut.yml`
 end

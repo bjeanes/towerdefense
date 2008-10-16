@@ -15,11 +15,7 @@ class User < ActiveRecord::Base
   has_many :playerships, :foreign_key => 'player_id', :dependent => :destroy
   has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "games.created_at desc"
   
-  has_many :games, :through => :playerships do
-    def active
-      all(:conditions => "game.started_at IS NOT NULL AND game.completed_at IS NULL")
-    end
-  end
+  has_many :games, :through => :playerships
   
   named_scope :online, :conditions => {:online => true}, :order => :login
   

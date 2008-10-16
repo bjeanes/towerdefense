@@ -12,11 +12,6 @@ class Game < ActiveRecord::Base
   
   # Games that have finished
   named_scope :concluded, :conditions => 'concluded_at IS NOT NULL'
-  
-  def concluded?
-    !concluded_at.nil?    
-  end
-  
   # can only join a game if:
   #   game_id provided
   #   game is open

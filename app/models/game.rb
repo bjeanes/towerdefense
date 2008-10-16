@@ -19,7 +19,6 @@ class Game < ActiveRecord::Base
   #   user has not previously left the game
   #   user was kicked out
   #   user is not already in game
-
   def join(user)  
     raise "Can not join this game" if new_record? || !open?
     

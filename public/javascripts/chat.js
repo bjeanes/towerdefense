@@ -3,6 +3,7 @@ var messageInput = null;
 var messsageSend = null;
 var chatForm     = null;
 var chatStatus   = null;
+var gameSwf      = null;
 
 var sendMessageOptions = null;
 
@@ -13,6 +14,7 @@ function setStatus(text) {
 function receiveMessage(msg) {
   try {    
     Element.insert(messageBox, {bottom: msg});
+    // TODO - only scroll if the box is already at the bottom
     messageBox.scrollTop = messageBox.scrollHeight;
   } catch (e) {
     // do nothing
@@ -29,6 +31,30 @@ function sendMessage() {
   } finally {
     return false; // stop form submitting    
   }
+}
+
+function js_receiveData(lives, gold, income, monsterRequest)
+{
+  if(monsterRequest == null)
+  {
+    // just update player info
+  }
+  else
+  {
+    // update player info and send a monster to attackee
+  }
+}
+
+// flash calls this function
+function js_lifeLost()
+{
+  alert('life lost');
+}
+
+function js_lifeGained()
+{
+  // tell the swf that it has gained a life
+  swf().lifeGained();
 }
 
 ///////////// Observers: ///////////////
@@ -48,6 +74,20 @@ document.observe("dom:loaded", function(event) {
     evalScripts:  true,
     onComplete:   function(request) { messageInput.value = ''; }
   };
+  
+  if($('game_swf') != null)
+  { // we are in a game, insert the flash
+    flashvars = attributes = {};
+    params = {
+      allowscriptaccess: 'always'
+    };
+    
+    swfobject.embedSWF('/index.swf', 'game_swf', 
+      '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
+      flashvars, params, attributes);
+      
+    gameSwf = $('game_swf'); // set the global game variable
+  }
 });
 
 document.observe("juggernaut:connected", function(event) {

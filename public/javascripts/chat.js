@@ -1,3 +1,5 @@
+
+////////////// Global Vars ////////////////
 var messageBox   = null;
 var messageInput = null;
 var messsageSend = null;
@@ -7,9 +9,13 @@ var gameSwf      = null;
 
 var sendMessageOptions = null;
 
+
+//////////// Juggernaut status //////////////
 function setStatus(text) {
   chatStatus.innerHTML = text;
 }
+
+///////////// Chat Functions ///////////////
 
 function receiveMessage(msg) {
   try {    
@@ -33,33 +39,65 @@ function sendMessage() {
   }
 }
 
-function js_receiveData(lives, gold, income, monsterRequest)
+//////////// Game Functions //////////////
+
+function js_statusUpdate(lives, gold, income)
 {
-  if(monsterRequest == null)
-  {
-    // just update player info
-  }
-  else
-  {
-    // update player info and send a monster to attackee
-  }
+  if(lives <= 0) alert('You are dead!');
+  // update player info
+  console.log("Lives: "+ lives + "\nGold: " + gold + "\nIncome: " + income);
+}
+
+// Current user is attacking the next player
+function js_attack(monster)
+{
+  console.log("Monster: "+ monster);
+}
+
+function js_isAttacked(monster)
+{
+  gameSwf().fl_receiveMonster(monster.toString());
 }
 
 // flash calls this function
 function js_lifeLost()
 {
-  alert('life lost');
+  // Server request will be sent here. the server should then
+  // decrease
+  console.log('Life lost... TODO: send this to server');
 }
 
 function js_lifeGained()
 {
   // tell the swf that it has gained a life
-  swf().lifeGained();
+  gameSwf().fl_lifeGained();
+}
+
+function embedGame()
+{
+  // if body#game exists
+  if($('game') != null)
+  { 
+    swfobject.embedSWF('/index.swf', 'game_swf', 
+      '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
+      false, {allowscriptaccess: 'always'});
+      
+    gameSwf = function() {
+      return $('game_swf');
+    };
+    
+    return true;
+  }
+  
+  gameSwf = function() { return null; }
+  return false;
 }
 
 ///////////// Observers: ///////////////
 
 // Find all the elements we need and set them
+// as well as insert the game SWF if we are on
+// a game page
 document.observe("dom:loaded", function(event) {
   messageInput = $('message_content');
   messageSend  = $('message_send');
@@ -75,19 +113,14 @@ document.observe("dom:loaded", function(event) {
     onComplete:   function(request) { messageInput.value = ''; }
   };
   
-  if($('game_swf') != null)
-  { // we are in a game, insert the flash
-    flashvars = attributes = {};
-    params = {
-      allowscriptaccess: 'always'
+  if(embedGame())
+  {
+    window.onload = function(){
+      // This will tell the game that we are in multiplayer mode
+      gameSwf().fl_checkLocal();
     };
-    
-    swfobject.embedSWF('/index.swf', 'game_swf', 
-      '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
-      flashvars, params, attributes);
-      
-    gameSwf = $('game_swf'); // set the global game variable
   }
+
 });
 
 document.observe("juggernaut:connected", function(event) {

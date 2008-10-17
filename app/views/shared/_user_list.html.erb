@@ -1,3 +1,11 @@
-<% users.each do |user| %>
-  <span style="color:#<%= user.colour %>"><%= user %> (lives, gold, income)</span>
-<% end %>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr><th>Player</th><th>L</th><th>G</th><th>I</th></tr>
+  <% users.each do |user| %>
+    <tr>
+      <td><span style="color:#<%= user.colour %>"><%= user %></span></td>
+      <td><%= user.lives %></td>
+      <td><%= user.gold %></td>
+      <td><%= user.income %></td>
+    </tr>
+  <% end %>
+</table>

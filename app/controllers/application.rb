@@ -27,4 +27,10 @@ class ApplicationController < ActionController::Base
   rescue
     nil
   end
+  
+  def current_game
+    current_user.current_game
+  rescue
+    nil
+  end
 end

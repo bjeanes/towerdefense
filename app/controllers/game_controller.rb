@@ -2,9 +2,7 @@ class GameController < ApplicationController
   before_filter :login_required
   
   def index
-    # Display current game or redirect to lobby
-    @game = current_user.current_game
-    @messages = Message.history.for_channel(@game).reverse
+    @messages = Message.history.for_channel(current_game).reverse
   rescue
     flash[:error] = "You must join a game"
     redirect_to lobby_path
@@ -19,5 +17,14 @@ class GameController < ApplicationController
   rescue    
     flash[:error] = "That is not a game that can be joined"
     redirect_to lobby_path
+  end
+  
+  def start
+    if request.xhr? && current_user.owns_game?(current_game)
+      current_game.started_at = Time.now
+      current_game.save
+    else
+      redirect_to game_path
+    end
   end
 end

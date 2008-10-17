@@ -19,6 +19,29 @@ class User < ActiveRecord::Base
   
   named_scope :online, :conditions => {:online => true}, :order => :login
   
+  delegate :next, :previous, :to => :playership
+  
+  # Could use delegates but they don't seem to work as nice for setters (cache the getters)
+  %w{income gold lives}.each do |c|
+    define_method(c) do
+      begin
+        playership.send c 
+      rescue
+        0
+      end
+    end
+    
+    define_method("#{c}=") do |new_value|
+      begin
+        playership.update_attribute(c, new_value)
+        playership.reload
+        new_value
+      rescue
+        nil
+      end
+    end
+  end
+  
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
     u = find_by_login(login) # need to get the salt
@@ -27,6 +50,18 @@ class User < ActiveRecord::Base
 
   def current_game
     games.active.first || games.open.first
+  end
+  
+  def playership
+    @playership ||= playerships.find_by_game_id(current_game.id)
+  rescue
+    nil
+  end
+  
+  def owns_game?(game = self)
+    current_game.owner == game
+  rescue
+    false
   end
 
   def login=(value)

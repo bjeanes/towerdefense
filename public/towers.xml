@@ -1,25 +1,16 @@
-<monster name = "hello" income = "50" health = "300" cost = "1"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello1" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello2" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello3" income = "50" health = "300" cost = "50"></monster>
-<monster name = "hello" income = "50" health = "300" cost = "50"></monster>
+<tower name = "Normal Tower" range = "100" slow = "100" damage = "5" cost = "1" frequency="10"></tower>
+<tower name = "Slow Tower" range = "150" slow = "80" damage = "10" cost = "1" frequency="10"></tower>
+<tower name = "Range Tower" range = "200" slow = "100" damage = "10" cost = "1" frequency="9"></tower>
+<tower name = "High Damage Tower" range = "150" slow = "100" damage = "15" cost = "2" frequency="9"></tower>
+<tower name = "Fire Tower" range = "200" slow = "75" damage = "15" cost = "1" frequency="8"></tower>
+<tower name = "Ice Tower" range = "200" slow = "75" damage = "15" cost = "1" frequency="8"></tower>
+<tower name = "Fire Tower" range = "250" slow = "100" damage = "15" cost = "1" frequency="6"></tower>
+<tower name = "Ice Tower" range = "250" slow = "100" damage = "15" cost = "1" frequency="6"></tower>
+<tower name = "Fire Tower" range = "150" slow = "100" damage = "20" cost = "1" frequency="4"></tower>
+<tower name = "Ice Tower" range = "150" slow = "100" damage = "20" cost = "1" frequency="4"></tower>
+<tower name = "Advanced Fire Tower" range = "250" slow = "50" damage = "20" cost = "1" frequency="7"></tower>
+<tower name = "Advanced Ice Tower" range = "250" slow = "50" damage = "20" cost = "1" frequency="7"></tower>
+<tower name = "Advanced Fire Tower" range = "350" slow = "100" damage = "20" cost = "1" frequency="5"></tower>
+<tower name = "Advanced Ice Tower" range = "350" slow = "100" damage = "20" cost = "1" frequency="5"></tower>
+<tower name = "Advanced Fire Tower" range = "250" slow = "100" damage = "30" cost = "1" frequency="3"></towerwer>
+<tower name = "Advanced Ice Tower" range = "250" slow = "100" damage = "30" cost = "1" frequency="3"></tower>

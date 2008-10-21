@@ -78,7 +78,7 @@ function js_statusUpdate(lives, gold, income)
 // Current user is attacking the next player
 function js_attack(monster)
 {
-  js_isAttacked(monster);
+  // js_isAttacked(monster);
   console.log("Monster: "+ monster);
 }
 
@@ -106,7 +106,7 @@ function embedGame()
   // if body#game exists
   if($('game') != null)
   { 
-    swfobject.embedSWF('/index.swf', 'game_swf', 
+    swfobject.embedSWF('/game/index.swf', 'game_swf', 
       '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
       false, {allowscriptaccess: 'always'});
       

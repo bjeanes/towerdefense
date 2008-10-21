@@ -41,8 +41,8 @@ namespace :deploy do
   
   desc "Symlinks database.yml file from shared folder"
   task :create_symlinks, :roles => :app do
-    # run "rm -drf #{release_path}/public/uploads"
-    # run "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
+    run "rm -drf #{release_path}/public/game"
+    run "ln -s #{shared_path}/uploads #{release_path}/public/game"
     run "rm -f #{release_path}/config/database.yml"
     run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
   end

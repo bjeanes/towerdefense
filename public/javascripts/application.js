@@ -108,7 +108,8 @@ function embedGame()
   { 
     swfobject.embedSWF('/game/index.swf', 'game_swf', 
       '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
-      false, {allowscriptaccess: 'always'});
+      {xmlMonsters: '/game/monsters.xml', xmlTowers: '/game/towers.xml', isLive: 'true'}, 
+      {allowscriptaccess: 'always'});
       
     gameSwf = function() {
       return $('game_swf');

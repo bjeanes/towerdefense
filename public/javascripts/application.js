@@ -108,7 +108,7 @@ function embedGame()
   { 
     swfobject.embedSWF('/game/index.swf', 'game_swf', 
       '800', '600', '9.0.0', '/juggernaut/expressinstall.swf', 
-      {xmlMonsters: '/game/monsters.xml', xmlTowers: '/game/towers.xml', isLive: 'true'}, 
+      {xmlMonsters: '/game/monsters.xml', xmlTowers: '/game/towers.xml', onServer: 'true'}, 
       {allowscriptaccess: 'always'});
       
     gameSwf = function() {
@@ -142,13 +142,7 @@ document.observe("dom:loaded", function(event) {
     onComplete:   function(request) { messageInput.value = ''; }
   };
   
-  if(embedGame())
-  {
-    window.onload = function(){
-      // This will tell the game that we are in multiplayer mode
-      gameSwf().fl_checkLocal();
-    };
-  }
+  embedGame();
 
 });
 

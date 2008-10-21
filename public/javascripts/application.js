@@ -78,7 +78,7 @@ function js_statusUpdate(lives, gold, income)
 // Current user is attacking the next player
 function js_attack(monster)
 {
-  // js_isAttacked(monster);
+  js_isAttacked(monster);
   console.log("Monster: "+ monster);
 }
 

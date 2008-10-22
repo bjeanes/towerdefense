@@ -8,7 +8,7 @@ class StreamController < ApplicationController
       Juggernaut.send_to_channels(msg, params[:channels])
       
       params[:channels].each do |channel|
-        unless channel == 'lobby'
+        unless channel.to_i.zero?
           game = Game.find(channel.to_i)
           
           if game.started_at.nil? && game.owner == request_user

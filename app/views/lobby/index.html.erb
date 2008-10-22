@@ -5,13 +5,14 @@
     <%= juggernaut \
           :host => request.host, 
           :client_id => current_user.id,
-          :channels => ['lobby'] %>
+          :channels => [0] %>
     <title>Tower Defense Lobby</title>
   </head>
   <body id="lobby">
     <h3>Open Games <span>(games you can join)</span></h3>
     <div id="games">
       <ul>
+        <li><%= link_to "[Create game]", "/game/create" %></li>
         <% Game.open.each do |game| %>
           <li><a href="<%= join_game_path(game) %>"><%= game.name %></a></li>
         <% end %>
@@ -19,7 +20,7 @@
     </div>
     
     <h3>Lobby Chat</h3>
-    <%= render :partial => 'shared/chat', :locals => {:channel => 'lobby'} %>
+    <%= render :partial => 'shared/chat', :locals => {:channel => 0} %>
     
     <div id="users">
       <%= render :partial => 'shared/user_list', :locals => {:users => User.online} %>

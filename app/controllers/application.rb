@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     Juggernaut.client_in_channel?(current_user.id, channel)
   end
   
-  def update_user_list(channels = 'lobby')
+  def update_user_list(channels = 0)
     channels = [*channels].flatten
     
     channels.each do |channel|

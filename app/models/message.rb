@@ -7,18 +7,17 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :content
   
-  validates_presence_of :channel_id, :if => :channel_required?
+  validates_presence_of :channel_id
   
   # the order should be reversed for logical display in view for history
   named_scope :history, :limit => 5, :order => 'created_at DESC'
   
-  named_scope :for_lobby, :conditions => {:kind => 'lobby', :recipient_id => nil}
+  named_scope :for_lobby, :conditions => {:channel_id => 0, :recipient_id => nil}
 
   for_channel_block = lambda { |channel| 
     raise "Missing game object for message finder" if channel.nil?
     {
       :conditions => {
-      :kind => 'channel', 
       :channel_id => channel.id, 
       :recipient_id => nil}
     }
@@ -27,13 +26,7 @@ class Message < ActiveRecord::Base
   named_scope :for_channel, for_channel_block
 
   def lobby?
-    channel == 'lobby'
-  end
-
-  def channel
-    return kind if kind == 'lobby'
-    
-    channel_id
+    channel_id.zero?
   end
 
   def sent!
@@ -41,17 +34,7 @@ class Message < ActiveRecord::Base
     save!
   end
   
-  protected
-  
-    def recipient_required?
-      self[:kind] == 'game'
-    end
-    
-    def channel_required?
-      self[:kind] != 'lobby'
-      false
-    end
-    
+  protected    
     def before_create
       self.sent = false if self.sent.nil?
       true

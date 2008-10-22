@@ -80,3 +80,7 @@ div#chat div#messages div.error {
 div#chat div#messages div.error span{
 	font-weight: normal;
 }
+div#chat input{float:right;}
+div#chat input#message_content {
+  width:100%;
+}

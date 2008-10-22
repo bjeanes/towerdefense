@@ -13,6 +13,6 @@ class MessagesController < ApplicationController
   protected
   def send_message
     message = render_to_string(:partial => 'messages/message', :object => @message)
-    Juggernaut.send_to_channel(javascript_chat_message(message), @message.channel)
+    Juggernaut.send_to_channel(javascript_chat_message(message), @message.channel_id)
   end
 end

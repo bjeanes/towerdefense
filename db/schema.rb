@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081022085257) do
+ActiveRecord::Schema.define(:version => 20081022113009) do
 
   create_table "games", :force => true do |t|
     t.datetime "started_at"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20081022085257) do
     t.integer  "channel_id"
     t.text     "content"
     t.boolean  "sent"
-    t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

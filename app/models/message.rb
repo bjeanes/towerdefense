@@ -2,12 +2,7 @@ class Message < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :recipient, :class_name => "User"
   
-  validates_presence_of :sender_id
-  validates_presence_of :recipient_id, :if => :recipient_required?
-  
-  validates_presence_of :content
-  
-  validates_presence_of :channel_id
+  validates_presence_of :sender_id, :content, :channel_id
   
   # the order should be reversed for logical display in view for history
   named_scope :history, :limit => 5, :order => 'created_at DESC'

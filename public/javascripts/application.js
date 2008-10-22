@@ -33,6 +33,7 @@ var messsageSend = null;
 var chatForm     = null;
 var chatStatus   = null;
 var gameSwf      = null;
+var startNow     = false;
 
 var sendMessageOptions = null;
 
@@ -68,12 +69,17 @@ function sendMessage() {
 
 //////////// Game Functions //////////////
 
+var i = 0;
 function js_statusUpdate(lives, gold, income)
 {
-  // new Ajax.Request('/game/status_update', {
-  //   method: 'post',
-  //   parameters: {lives: lives, gold: gold, income: income}
-  // });
+  // we'll just send every third request
+  if(i++ % 3 == 0)
+  {
+    new Ajax.Request('/game/status_update', {
+      method: 'post',
+      parameters: {lives: lives, gold: gold, income: income}
+    });
+  }
 }
 
 // Current user is attacking the next player

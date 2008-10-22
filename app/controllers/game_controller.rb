@@ -21,6 +21,8 @@ class GameController < ApplicationController
     raise "Game already started" unless game.open?
     
     game.join(current_user) unless game.has_player?(current_user)
+    current_user.lives = 25
+    current_user.save!
     redirect_to game_path
   rescue    
     flash[:error] = "That is not a game that can be joined"
@@ -28,7 +30,12 @@ class GameController < ApplicationController
   end
   
   def status_update
+    current_user.gold = params[:gold]
+    current_user.lives = params[:lives]
+    current_user.income = params[:income]
     # update_user_list(current_game.id)
+    Juggernaut.send_to_client_on_channel("", current_user.next.player.id, current_game.id )
+
     render :nothing => true
   end
   
@@ -42,13 +49,16 @@ class GameController < ApplicationController
   end
   
   def life_lost
-    current_user.lives -= 1
-    current_user.previous.lives += 1
+    # current_user.lives -= 1
+    # current_user.previous.lives += 1
     
-    message = render_to_string :partial => 'messages/gained_a_life', 
-      :locals => {:user_1 => current_user.previous.player, :user_2 => current_user}
-    life_gained(current_user.previous.player)      
-    send_status_message(message)
+    # if we are attacking ourselves, don't give our life back (otherwise it will never end)
+    unless current_user == current_user.previous.player
+      message = render_to_string :partial => 'messages/gained_a_life', 
+        :locals => {:user_1 => current_user.previous.player, :user_2 => current_user}
+      life_gained(current_user.previous.player)      
+      send_status_message(message)
+    end
   end  
   
   def start

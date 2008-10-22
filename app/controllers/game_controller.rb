@@ -33,10 +33,8 @@ class GameController < ApplicationController
     current_user.gold = params[:gold]
     current_user.lives = params[:lives]
     current_user.income = params[:income]
-    # update_user_list(current_game.id)
-    Juggernaut.send_to_client_on_channel("", current_user.next.player.id, current_game.id )
 
-    render :nothing => true
+    update_user_list(current_game.id)
   end
   
   def attack
@@ -64,6 +62,7 @@ class GameController < ApplicationController
   def start
     if request.xhr? && current_user.owns_game?(current_game) && current_game.open?
       current_game.start!
+      logger.debug(current_game.open?)
       Juggernaut.send_to_channel('embedGame();', current_game.id);
     else
       raise "Already started or not owner of game...}"

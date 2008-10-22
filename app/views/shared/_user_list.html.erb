@@ -1,11 +1,10 @@
 <table border="0" cellspacing="0" cellpadding="0">
-  <tr><th>Player</th><th>L</th><th>G</th><th>I</th></tr>
+  <tr><th>Player</th><th>(Income):</th><th>Lives</th></tr>
   <% users.each do |user| %>
     <tr>
       <td><span style="color:#<%= user.colour %>"><%= user %></span></td>
+      <td>(<%= user.income %>):</td>
       <td><%= user.lives %></td>
-      <td><%= user.gold %></td>
-      <td><%= user.income %></td>
     </tr>
   <% end %>
 </table>

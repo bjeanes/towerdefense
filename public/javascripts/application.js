@@ -82,6 +82,12 @@ function js_statusUpdate(lives, gold, income)
   }
 }
 
+function updateUserList(usersHTML)
+{
+  if(userTable = $('users').down())
+    userTable.replace(usersHTML);
+}
+
 // Current user is attacking the next player
 function js_attack(monster)
 {

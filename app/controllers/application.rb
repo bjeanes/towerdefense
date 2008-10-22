@@ -16,10 +16,13 @@ class ApplicationController < ActionController::Base
     channels = [*channels].flatten
     
     channels.each do |channel|
-      users = User.in(channel)
-      Juggernaut.send_to_channel("...", channel)
+      users = Game.find(channel.to_i).playerships.all(:order => 'lives DESC')
+      user_list = render_to_string :partial => 'shared/user_list', 
+        :locals => {:users => users}
+      user_list = 'updateUserList("%s");' % escape_message(user_list)
+      Juggernaut.send_to_channel(user_list, channel)
     end
-    
+  ensure
     render :nothing => true
   end
   
@@ -30,7 +33,7 @@ class ApplicationController < ActionController::Base
     render :nothing => true
   end
   
-  def   javascript_chat_message(message)
+  def javascript_chat_message(message)
     'receiveMessage("%s");' % escape_message(message)
   end
   

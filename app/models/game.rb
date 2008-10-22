@@ -35,7 +35,7 @@ class Game < ActiveRecord::Base
   end
   
   def start!
-    started_at = Time.now
+    self.started_at = Time.now
     save!
   end
   

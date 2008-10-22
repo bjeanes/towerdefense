@@ -1,6 +1,5 @@
 class Playership < ActiveRecord::Base
-  acts_as_ordered :order => 'id', :wrap => true, :conditions => :active?
-  
+  acts_as_ordered :order => 'id', :wrap => true  
   
   belongs_to :game
   belongs_to :player, :class_name => "User"
@@ -12,10 +11,5 @@ class Playership < ActiveRecord::Base
     if self.class.first(:conditions => {:game_id => game.id}).nil?
       self[:owner] = true
     end
-  end
-  
-  def inactive!
-    active = false
-    save
   end
 end

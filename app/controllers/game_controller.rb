@@ -28,6 +28,7 @@ class GameController < ApplicationController
   def attack
     monster = params[:monster]
     Juggernaut.send_to_client_on_channel("js_isAttacked('#{monster}');", current_user.next.id, current_game.id )
+    render :nothing => true
   end
   
   def life_lost
@@ -36,6 +37,7 @@ class GameController < ApplicationController
     
     message = render_to_string :partial => 'messages/gained_a_life', 
       :locals => {:user_1 => current_user.next, :user_2 => current_user}
+    life_gained(current_user.next)      
     send_status_message(message)
   end  
   
@@ -54,5 +56,10 @@ class GameController < ApplicationController
       flash[:error] = "You must be in a game to do that..."
       redirect_to lobby_path
     end
+  end
+  
+  def life_gained(user)
+    message = "gameSwf().fl_lifeGained();"
+    Juggernaut.send_to_client_on_channel(message, user.id, current_game.id)
   end
 end

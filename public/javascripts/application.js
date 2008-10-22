@@ -97,12 +97,6 @@ function js_lifeLost()
   new Ajax.Request('/game/life_lost', {method: 'post'});
 }
 
-function js_lifeGained()
-{
-  // tell the swf that it has gained a life
-  gameSwf().fl_lifeGained();
-}
-
 function embedGame()
 {
   // if body#game exists

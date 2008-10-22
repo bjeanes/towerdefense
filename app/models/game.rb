@@ -28,6 +28,17 @@ class Game < ActiveRecord::Base
     players.include? player
   end
   
+  def owner
+    playerships.first(:conditions => {:owner => true}).player
+  rescue
+    destroy
+  end
+  
+  def start!
+    started_at = Time.now
+    save!
+  end
+  
   # States:
   def open?
     started_at.nil?

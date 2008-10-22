@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
   
   def owns_game?(game = self)
-    current_game.owner == game
+    game.owner == self
   rescue
     false
   end

@@ -6,6 +6,7 @@ class Playership < ActiveRecord::Base
 
   validates_presence_of :player, :game
   
+  delegate :to_s, :login, :colour, :online, :to => :player
   
   def before_create
     if self.class.first(:conditions => {:game_id => game.id}).nil?

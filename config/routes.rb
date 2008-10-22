@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     m.game 'game'
     m.join_game 'game/join/:id', :action => "join"
     
-    %w{start status_update life_lost attack}.each do |action|
+    %w{start status_update life_lost attack create}.each do |action|
       m.connect "game/#{action}", :action => action
     end
   end  

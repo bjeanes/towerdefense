@@ -11,7 +11,20 @@
   <body id="game">
     <div id="swf">
       <div id="game_swf">
-        Flash is required to play this game
+        <% if current_game.open? %>
+          <script type="text/javascript" charset="utf-8">
+            var startNow = false;
+          </script>
+          <% if current_user.owns_game? current_game %>
+            <%= link_to "Click here to start the game", 'javascript:startGame();' %>
+          <% else %>
+            The game will begin when the owner presses start...
+          <% end %>
+        <% else %>
+          <script type="text/javascript" charset="utf-8">
+            var startNow = true;
+          </script>
+        <% end %>
       </div>
     </div>
     <%= render :partial => 'shared/chat', :locals => {:channel => current_game.id} %>

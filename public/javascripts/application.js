@@ -97,6 +97,10 @@ function js_lifeLost()
   new Ajax.Request('/game/life_lost', {method: 'post'});
 }
 
+function startGame() {
+  new Ajax.Request('/game/start', {method:'post'});
+}
+
 function embedGame()
 {
   // if body#game exists
@@ -138,8 +142,8 @@ document.observe("dom:loaded", function(event) {
     onComplete:   function(request) { messageInput.value = ''; }
   };
   
-  embedGame();
-
+  if(startNow)
+    embedGame();
 });
 
 document.observe("juggernaut:connected", function(event) {

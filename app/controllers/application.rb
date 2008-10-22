@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     render :nothing => true
   end
   
-  def javascript_chat_message(message)
+  def   javascript_chat_message(message)
     'receiveMessage("%s");' % escape_message(message)
   end
   

@@ -18,8 +18,11 @@ ActionController::Routing::Routes.draw do |map|
   # Game routes
   map.with_options :controller => "game" do |m|
     m.game 'game'
-    m.connect 'game/start', :action => "start" 
     m.join_game 'game/join/:id', :action => "join"
+    
+    %w{start status_update life_lost attack}.each do |action|
+      m.connect "game/#{action}", :action => action
+    end
   end  
   
   map.root :controller => "lobby", :action => "redirect_to_lobby"

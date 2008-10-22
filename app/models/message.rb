@@ -35,11 +35,7 @@ class Message < ActiveRecord::Base
     
     channel_id
   end
-  
-  def timestamp
-    created_at.strftime("%d %b %y @ %H:%M")
-  end
-  
+
   def sent!
     sent = true
     save!

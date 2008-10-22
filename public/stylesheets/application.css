@@ -60,8 +60,12 @@ div#chat div#messages {
 	overflow-x:auto;
 }
 
-div#chat div#messages div.message span {
+div#chat div#messages div.message span.user {
 	font-weight: bold;
+}
+
+div#chat div#messages div.status {
+font-style:italic;
 }
 
 div#chat div#messages div.history {

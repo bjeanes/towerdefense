@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   helper :all
-  protect_from_forgery :secret => '94a45eddfc4f90ebf9470b5d5271ad35'
+  # protect_from_forgery :secret => '94a45eddfc4f90ebf9470b5d5271ad35'
   filter_parameter_logging :password, :password_confirmation
   
   protected
@@ -12,14 +12,30 @@ class ApplicationController < ActionController::Base
     Juggernaut.client_in_channel?(current_user.id, channel)
   end
   
-  def send_message
-    message = render_to_string(:partial => 'messages/message', :object => @message)
-    message = 'receiveMessage("%s");' % message.gsub(/\"/, '\"').gsub(/\n|\r/,'') # escape double quotes and remove new lines
-    logger.debug(message)
+  def update_user_list(channels = 'lobby')
+    channels = [*channels].flatten
     
-    Juggernaut.send_to_channel(message, @message.channel)
+    channels.each do |channel|
+      users = User.in(channel)
+      Juggernaut.send_to_channel("...", channel)
+    end
     
     render :nothing => true
+  end
+  
+  
+  
+  def send_status_message(msg)
+    Juggernaut.send_to_channel(javascript_chat_message(msg), current_game.id)
+    render :nothing => true
+  end
+  
+  def javascript_chat_message(message)
+    'receiveMessage("%s");' % escape_message(message)
+  end
+  
+  def escape_message(message)
+    message.gsub(/\"/, '\"').gsub(/\n|\r/,'')
   end
   
   def session_data_by_id(id)

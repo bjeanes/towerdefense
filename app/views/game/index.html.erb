@@ -14,31 +14,7 @@
         Flash is required to play this game
       </div>
     </div>
-    <div id="chat">
-      <div id="messages">
-        <div class="history">
-          <%= render :partial => 'messages/message', :collection => @messages %>
-          <div class="marker">
-            &#x21E7; HISTORY &#x21E7;
-          </div>
-        </div>
-      </div>
-      <div id="text_input">
-        <form method="post" action="<%= messages_path %>" id="send_message_form">
-          <%= text_field_tag 'message[content]', '', 
-              { :id => 'message_content', 
-                :disabled => true} %>
-          <%= hidden_field_tag 'message[kind]', 'channel', {:id => 'message_kind'}%>
-          <%= hidden_field_tag 'message[channel_id]', current_game.id, { :id => 'message_channel' } %>
-          <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
-          <%= submit_tag "Send", {:id => "message_send", :disabled => true} %>
-        </form>
-        
-        <div id="chat_status">
-          Disconnected.
-        </div>
-      </div>
-    </div>
+    <%= render :partial => 'shared/chat', :locals => {:channel => current_game.id} %>
     <div id="users">
       <%= render :partial => 'shared/user_list', :locals => {:users => User.online} %>
     </div>

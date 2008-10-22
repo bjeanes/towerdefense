@@ -70,16 +70,20 @@ function sendMessage() {
 
 function js_statusUpdate(lives, gold, income)
 {
-  if(lives <= 0) alert('You are dead!');
-  // update player info
-  console.log("Lives: "+ lives + ", Gold: " + gold + ", Income: " + income);
+  // new Ajax.Request('/game/status_update', {
+  //   method: 'post',
+  //   parameters: {lives: lives, gold: gold, income: income}
+  // });
 }
 
 // Current user is attacking the next player
 function js_attack(monster)
 {
-  js_isAttacked(monster);
-  console.log("Monster: "+ monster);
+  // js_isAttacked(monster);
+  new Ajax.Request('/game/attack', {
+    method: 'post',
+    parameters: {monster: monster}
+  });
 }
 
 function js_isAttacked(monster)
@@ -90,9 +94,7 @@ function js_isAttacked(monster)
 // flash calls this function
 function js_lifeLost()
 {
-  // Server request will be sent here. the server should then
-  // decrease
-  console.log('Life lost... TODO: send this to server');
+  new Ajax.Request('/game/life_lost', {method: 'post'});
 }
 
 function js_lifeGained()

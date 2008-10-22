@@ -3,47 +3,19 @@ class StreamController < ApplicationController
   
   def part
     if request_valid?
-      # This should remove us from a game/channel
       request_user.offline!
-    
-      # should do a render juggernaut and tell all user lists in parted channels to refresh
-      message = "<div class=\"message\">-&gt; #{request_user} has disconnected</div>"
-      render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
-        # have to use @request_user here else get method_missing (block scope is in ActionView)
-        page.insert_html :bottom, 'messages', message
-        page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
-      end
     end
     render :nothing => true
   end
   
   def disconnect
     request_user.offline! if request_valid?
-    
-    message = "<div class=\"message\">-&gt; #{request_user} has quit</div>"
-    render :juggernaut => {:type => :send_to_all} do |page|
-      # have to use @request_user here else get method_missing (block scope is in ActionView)
-      page.insert_html :bottom, 'messages', message
-      page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
-    end
     render :nothing => true
   end
   
   def join
     if request_valid?
       request_user.online!
-      
-      message = "<div class=\"message\">-&gt; #{request_user} has connected</div>"
-      
-      # This should add the request_user to a game/lobby
-      
-      # this should push current user name onto all channel user lists
-      render :juggernaut => {:type => :send_to_channels, :channels => params[:channels]} do |page|
-        # have to use @request_user here else get method_missing (block scope is in ActionView)
-        page.insert_html :bottom, 'messages', message
-        page.replace_html 'users', :partial => 'shared/user_list', :locals => {:users => User.online}
-      end
-      
       render :nothing => true
     else
       render :text => "403", :status => 403

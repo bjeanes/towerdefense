@@ -42,6 +42,12 @@ class User < ActiveRecord::Base
     end
   end
   
+  def lives_changed(new_lives)
+    old_lives = self.lives
+    self.lives = new_lives.to_i
+    (old_lives + new_lives).to_i
+  end
+  
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
     u = find_by_login(login) # need to get the salt

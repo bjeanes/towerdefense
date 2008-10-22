@@ -1,8 +1,6 @@
 <div class="message">
-  [<%= message.timestamp %>]
-  <span class="sender" style="color:#<%= message.sender.colour %>">
-    <%= h(message.sender) %>
-  </span>: 
+  <%= timestamp(message.created_at) %>
+  <%= user(message.sender) %>: 
   
   <%= h(message.content) %>
 </div>

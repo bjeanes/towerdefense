@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
   
   def offline!
     self.online = false
+    self.playerships.map(&:inactive!)
     save!
   end
   

@@ -5,22 +5,29 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
+  # User requirements before it can be saved to a database
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
   
+  # Create getters/setters for following variables
   attr_accessible :login, :password, :password_confirmation
   
   has_many :playerships, :foreign_key => 'player_id', :dependent => :destroy
+  
+  # Has one owned game (at a time)
   has_one :game, :through => :playerships, :conditions => ["playerships.owner = ?", true], :order => "games.created_at desc"
   
+  # Has many games that they have played
   has_many :games, :through => :playerships
   
+  # User.online - finds all online users ordered by login name
   named_scope :online, :conditions => {:online => true}, :order => :login
   
   delegate :next, :previous, :to => :playership
   
+  # Metaprogramming method to define getters and setters for income, gold, and lives
   # Could use delegates but they don't seem to work as nice for setters (cache the getters)
   %w{income gold lives}.each do |c|
     define_method(c) do
@@ -42,12 +49,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  def lives_changed(new_lives)
-    old_lives = self.lives
-    self.lives = new_lives.to_i
-    (old_lives + new_lives).to_i
-  end
-  
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
     u = find_by_login(login) # need to get the salt
@@ -64,14 +65,10 @@ class User < ActiveRecord::Base
     nil
   end
   
-  def owns_game?(game = self)
+  def owns_game?(game)
     game.owner == self
   rescue
     false
-  end
-
-  def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
   end
   
   def online!
@@ -101,6 +98,8 @@ class User < ActiveRecord::Base
   
   protected
   
+  # When a user is created, we need to give them a random colour
+  # for display in lists and chat messages
   def before_create
     self.colour = random_colour
   end

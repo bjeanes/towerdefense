@@ -24,16 +24,20 @@ class Game < ActiveRecord::Base
     save!
   end
   
+  # Is a player in a game?
   def has_player?(player)
     players.include? player
   end
   
+  # Returns the owner of the game. 
+  # If no owner is found, destroy the game
   def owner
     playerships.first(:conditions => {:owner => true}).player
   rescue
     destroy
   end
   
+  # Start a game
   def start!
     self.started_at = Time.now
     save!

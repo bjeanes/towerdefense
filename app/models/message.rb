@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :recipient, :class_name => "User"
   
+  # Ensure that only messages with a sender can be created
   validates_presence_of :sender_id, :content, :channel_id
   
   # the order should be reversed for logical display in view for history
@@ -17,7 +18,8 @@ class Message < ActiveRecord::Base
       :recipient_id => nil}
     }
   }
-
+  
+  # Returns all messages for a given channel/game
   named_scope :for_channel, for_channel_block
 
   def lobby?
@@ -29,6 +31,7 @@ class Message < ActiveRecord::Base
     save!
   end
   
+  # Unless we have specified that it has already been sent, mark it as not sent
   protected    
     def before_create
       self.sent = false if self.sent.nil?

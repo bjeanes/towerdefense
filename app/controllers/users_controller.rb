@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
  
+  # Registers a new user
   def create
     logout_keeping_session!
     @user = User.new(params[:user])

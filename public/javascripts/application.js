@@ -73,7 +73,7 @@ var i = 0;
 function js_statusUpdate(lives, gold, income)
 {
   // we'll just send every third request
-  if(i++ % 3 == 0)
+  if(i++ % 8 == 0)
   {
     new Ajax.Request('/game/status_update', {
       method: 'post',

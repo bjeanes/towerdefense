@@ -82,6 +82,8 @@ class GameController < ApplicationController
       attacker = current_user.previous.player
       life_gained(attacker)
     end
+  ensure
+    render :nothing => true
   end  
   
   # /game/start

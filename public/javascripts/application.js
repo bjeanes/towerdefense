@@ -63,6 +63,8 @@ function sendMessage() {
     
     new Ajax.Request('/messages', sendMessageOptions);
   } finally {
+    
+    messageInput.value = '';
     return false; // stop form submitting    
   }
 }
@@ -151,7 +153,7 @@ document.observe("dom:loaded", function(event) {
   sendMessageOptions = {
     asynchronous: true, 
     evalScripts:  true,
-    onComplete:   function(request) { messageInput.value = ''; }
+    onComplete:   function(request) {  }
   };
   
   if(startNow)

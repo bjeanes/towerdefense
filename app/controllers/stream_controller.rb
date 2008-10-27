@@ -36,7 +36,7 @@ class StreamController < ApplicationController
           # can attack the next in line
           playership = game.playerships.find_by_player_id(params[:client_id])
           logger.info("Removing player #{params[:client_id]} from game #{channel} with playership: #{playership.inspect}")
-          playership.destroy unless playership.nil?
+          # playership.destroy unless playership.nil?
         end
       end
     end
